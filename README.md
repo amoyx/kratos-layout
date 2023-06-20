@@ -71,7 +71,7 @@ make run
 docker build -t <your-docker-image-name> .
 
 # 运行 Docker 容器
-docker run --rm -p 8000:8000 -p 9000:9000 -v </path/to/your/configs>:/data/conf <your-docker-image-name>
+docker run --rm -p 8000:8083 -p 9000:9003 -v </path/to/your/configs>:/data/conf <your-docker-image-name>
 ```
 
 
