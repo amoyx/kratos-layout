@@ -1,0 +1,300 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ""
+    version: 0.0.1
+paths:
+    /user:
+        get:
+            tags:
+                - UserService
+            description: Lists users with optional filtering and pagination
+            operationId: UserService_ListUsers
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.ListUsersResponse'
+        post:
+            tags:
+                - UserService
+            description: Creates a new user
+            operationId: UserService_CreateUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.v1.CreateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.UserResponse'
+    /user/{id}:
+        get:
+            tags:
+                - UserService
+            description: Retrieves a user by ID
+            operationId: UserService_GetUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.UserResponse'
+        put:
+            tags:
+                - UserService
+            description: Updates an existing user
+            operationId: UserService_UpdateUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.v1.UpdateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.UserResponse'
+        delete:
+            tags:
+                - UserService
+            description: Deletes a user by ID
+            operationId: UserService_DeleteUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.EmptyResponse'
+    /v2/user:
+        get:
+            tags:
+                - UserService
+            description: Lists users with optional filtering and pagination
+            operationId: UserService_ListUsers
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v2.ListUsersResponse'
+        post:
+            tags:
+                - UserService
+            description: Creates a new user
+            operationId: UserService_CreateUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.v2.CreateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v2.UserResponse'
+    /v2/user/query/bySex:
+        get:
+            tags:
+                - UserService
+            description: Queries users by sex
+            operationId: UserService_QueryUsersBySex
+            parameters:
+                - name: sex
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v2.QueryUsersBySexResponse'
+    /v2/user/{id}:
+        get:
+            tags:
+                - UserService
+            description: Retrieves a user by ID
+            operationId: UserService_GetUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v2.UserResponse'
+        put:
+            tags:
+                - UserService
+            description: Updates an existing user
+            operationId: UserService_UpdateUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/helloworld.v2.UpdateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v2.UserResponse'
+        delete:
+            tags:
+                - UserService
+            description: Deletes a user by ID
+            operationId: UserService_DeleteUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v2.EmptyResponse'
+components:
+    schemas:
+        helloworld.v1.CreateUserRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+            description: The request message containing the user's name.
+        helloworld.v1.EmptyResponse:
+            type: object
+            properties: {}
+        helloworld.v1.ListUsersResponse:
+            type: object
+            properties:
+                users:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/helloworld.v1.UserResponse'
+        helloworld.v1.UpdateUserRequest:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                name:
+                    type: string
+        helloworld.v1.UserResponse:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                name:
+                    type: string
+        helloworld.v2.CreateUserRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                sex:
+                    type: string
+            description: The request message containing the user's name.
+        helloworld.v2.EmptyResponse:
+            type: object
+            properties: {}
+        helloworld.v2.ListUsersResponse:
+            type: object
+            properties:
+                users:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/helloworld.v2.UserResponse'
+        helloworld.v2.QueryUsersBySexResponse:
+            type: object
+            properties:
+                users:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/helloworld.v2.UserResponse'
+        helloworld.v2.UpdateUserRequest:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                name:
+                    type: string
+                sex:
+                    type: string
+        helloworld.v2.UserResponse:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                name:
+                    type: string
+                sex:
+                    type: string
+tags:
+    - name: UserService
+      description: The user service definition.
+    - name: UserService
+      description: The user service definition.

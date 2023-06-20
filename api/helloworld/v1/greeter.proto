@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package helloworld.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/any.proto";
+
+option go_package = "github.com/go-kratos/kratos-layout/api/helloworld/v1;v1";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.helloworld.v1";
+option java_outer_classname = "HelloworldProtoV1";
+
+// The user service definition.
+service UserService {
+  // Retrieves a user by ID
+  rpc GetUser (GetUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      get: "/user/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Retrieve a user by ID"
+      tags: "user"
+    };
+  }
+
+  // Creates a new user
+  rpc CreateUser (CreateUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      post: "/user"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Create a new user"
+      tags: "user"
+    };
+  }
+
+  // Updates an existing user
+  rpc UpdateUser (UpdateUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      put: "/user/{id}"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Update an existing user"
+      tags: "user"
+    };
+  }
+
+  // Deletes a user by ID
+  rpc DeleteUser (DeleteUserRequest) returns (EmptyResponse) {
+    option (google.api.http) = {
+      delete: "/user/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Delete a user by ID"
+      tags: "user"
+    };
+  }
+
+  // Lists users with optional filtering and pagination
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse) {
+    option (google.api.http) = {
+      get: "/user"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "List users with optional filtering and pagination"
+      tags: "user"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message CreateUserRequest {
+  string name = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "id",
+    description: "id"
+  }];
+}
+
+message EmptyResponse {
+
+}
+
+message GetUserRequest {
+  int64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "ID",
+    description: "User ID"
+  }];
+}
+
+message DeleteUserRequest {
+  int64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "ID",
+    description: "User ID"
+  }];
+}
+
+message UpdateUserRequest {
+  int64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "ID",
+    description: "User ID"
+  }];
+  string name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "Name",
+    description: "User name"
+  }];
+}
+
+message ListUsersRequest {
+
+}
+
+message ListUsersResponse {
+  repeated UserResponse users = 1;
+}
+
+message UserResponse {
+  int64 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "ID",
+    description: "User ID"
+  }];
+  string name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    title: "Name",
+    description: "User name"
+  }];
+}
+
+message Response {
+  int32 code = 1;
+  string message = 2;
+
+  google.protobuf.Any data = 3;
+}

@@ -1,0 +1,192 @@
+syntax = "proto3";
+
+package helloworld.v2;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+
+option go_package = "helloworld/api/helloworld/v2;v2";
+option java_multiple_files = true;
+option java_package = "dev.kratos.api.helloworld.v2";
+option java_outer_classname = "HelloworldProtoV2";
+
+// The user service definition.
+service UserService {
+  // Retrieves a user by ID
+  rpc GetUser (GetUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      get: "/v2/user/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Retrieve a user by ID"
+      tags: "user"
+    };
+  }
+
+  // Creates a new user
+  rpc CreateUser (CreateUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      post: "/v2/user"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Create a new user"
+      tags: "user"
+    };
+  }
+
+  // Updates an existing user
+  rpc UpdateUser (UpdateUserRequest) returns (UserResponse) {
+    option (google.api.http) = {
+      put: "/v2/user/{id}"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Update an existing user"
+      tags: "user"
+    };
+  }
+
+  // Deletes a user by ID
+  rpc DeleteUser (DeleteUserRequest) returns (EmptyResponse) {
+    option (google.api.http) = {
+      delete: "/v2/user/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Delete a user by ID"
+      tags: "user"
+    };
+  }
+
+  // Lists users with optional filtering and pagination
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse) {
+    option (google.api.http) = {
+      get: "/v2/user"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "List users with optional filtering and pagination"
+      tags: "user"
+    };
+  }
+
+  // Queries users by sex
+  rpc QueryUsersBySex (QueryUsersBySexRequest) returns (QueryUsersBySexResponse) {
+    option (google.api.http) = {
+      get: "/v2/user/query/bySex"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Query users by sex"
+      tags: "user"
+    };
+  }
+
+}
+
+message QueryUsersBySexRequest {
+  string sex = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "Sex",
+      description: "User sex"
+    }];
+}
+
+message QueryUsersBySexResponse {
+  repeated UserResponse users = 1;
+}
+
+
+// The request message containing the user's name.
+message CreateUserRequest {
+  string name = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "Name",
+      description: "User name"
+    },
+    (validate.rules).string.min_len = 1, // The string must be at least 1 character long
+    (validate.rules).string.max_len = 255 // The string must be at most 255 characters long
+  ];
+  string sex = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "Sex",
+      description: "User sex"
+    },
+    (validate.rules).string.min_len = 1, // The string must be at least 1 character long
+    (validate.rules).string.max_len = 255 // The string must be at most 255 characters long
+  ];
+}
+
+message EmptyResponse {}
+
+message GetUserRequest {
+  int64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "ID",
+      description: "User ID"
+    },
+    (validate.rules).int64.gt = 0  // The ID must be greater than 0
+  ];
+}
+
+message DeleteUserRequest {
+  int64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "ID",
+      description: "User ID"
+    },
+    (validate.rules).int64.gt = 0  // The ID must be greater than 0
+  ];
+}
+
+message UpdateUserRequest {
+  int64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "ID",
+      description: "User ID"
+    },
+    (validate.rules).int64.gt = 0  // The ID must be greater than 0
+  ];
+  string name = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "Name",
+      description: "User name"
+    },
+    (validate.rules).string.min_len = 1, // The string must be at least 1 character long
+    (validate.rules).string.max_len = 255 // The string must be at most 255 characters long
+  ];
+  string sex = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "Sex",
+      description: "User sex"
+    },
+    (validate.rules).string.min_len = 1, // The string must be at least 1 character long
+    (validate.rules).string.max_len = 255 // The string must be at most 255 characters long
+  ];
+}
+
+message ListUsersRequest {
+}
+
+message ListUsersResponse {
+  repeated UserResponse users = 1;
+}
+
+message UserResponse {
+  int64 id = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "ID",
+      description: "User ID"
+    }];
+  string name = 2 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "Name",
+      description: "User name"
+    }];
+  string sex = 3 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "Sex",
+      description: "User sex"
+    }];
+}
+
+

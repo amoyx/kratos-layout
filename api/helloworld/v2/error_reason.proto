@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package helloworld.v2;
+
+import "errors/errors.proto";
+
+option go_package = "helloworld/api/helloworld/v2;v2";
+option java_multiple_files = true;
+option java_package = "helloworld.v2";
+option objc_class_prefix = "APIHelloworldV2";
+
+enum ErrorReason {
+  CREATE_USER_FAILED = 0 [(errors.code) = 201];
+  UPDATE_USER_FAILED = 1 [(errors.code) = 202];
+  DELETE_USER_FAILED = 2 [(errors.code) = 203];
+  USER_NOT_FOUND = 3 [(errors.code) = 204];
+}

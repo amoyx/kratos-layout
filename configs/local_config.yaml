@@ -1,0 +1,35 @@
+application:
+  server:
+    http:
+      addr: 0.0.0.0:8003
+      timeout: 3s
+    grpc:
+      addr: 0.0.0.0:9003
+      addrtimeout: 3s
+
+  data:
+    database:
+      driver: mysql
+      source: root:root@tcp(127.0.0.1:3306)/test
+    redis:
+      addr: 127.0.0.1:6379
+      type: one
+      index: 2
+      password: abcdefghijklmn
+      read_timeout: 0.5s
+      write_timeout: 0.5s
+
+  eureka:
+    address: http://127.0.0.1:8761
+    path: eureka
+
+  tracing:
+    endpoint: http://ap-shanghai.apm.tencentcs.com:268/api/traces
+    token: abcdefghijklmn
+
+apollo:
+  appId: kratostest
+  cluster: dev
+  namespaceName: application
+  ip: http://apollo-configservice-dev.sandload.cn
+
